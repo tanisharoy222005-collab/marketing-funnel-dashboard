@@ -1,57 +1,77 @@
 # Marketing Funnel Dashboard
 
-A comprehensive marketing analytics and business intelligence project demonstrating how organizations can measure acquisition performance, analyze conversion funnels, evaluate campaign effectiveness, and improve marketing ROI using Google Analytics 4, Google Ads, BigQuery, SQL, CRM data, and executive dashboard reporting.
+A production-style Marketing Analytics and Business Intelligence project demonstrating how Google Analytics 4, Google Ads, CRM data, SQL, BigQuery-style modeling, and executive dashboards can be combined to measure marketing effectiveness and optimize lead generation.
 
 ---
 
-# Executive Summary
+## Executive Summary
 
-Marketing teams often have access to large amounts of data but struggle to connect traffic, engagement, lead generation, and revenue outcomes into a single reporting framework.
+Organizations often collect marketing data from multiple platforms but struggle to connect traffic acquisition, user engagement, lead generation, and revenue outcomes into a unified reporting framework.
 
-This project simulates an end-to-end marketing analytics solution that integrates:
+This project demonstrates the design of a centralized marketing analytics solution that enables stakeholders to:
 
-* Google Analytics 4
-* Google Ads
-* CRM Lead Data
-* BigQuery
-* SQL Transformations
-* Dashboard Reporting
+- Measure acquisition performance
+- Monitor funnel conversion rates
+- Identify conversion bottlenecks
+- Evaluate landing page effectiveness
+- Assess campaign ROI
+- Analyze lead quality
+- Support marketing budget allocation decisions
 
-The goal is to provide stakeholders with a centralized view of marketing performance and actionable business insights.
+The solution combines web analytics, advertising data, CRM data, SQL transformations, KPI governance, attribution reporting, and dashboard design into a single analytics ecosystem.
 
 ---
 
 # Business Problem
 
-The marketing organization lacked visibility into:
+Marketing teams lacked visibility into:
 
-* Which acquisition channels generated the highest-quality leads
-* Where users abandoned the conversion funnel
-* Which landing pages contributed most to lead generation
-* Whether advertising investments generated positive returns
-* How marketing activities influenced revenue outcomes
+- Which channels generated the highest-quality leads
+- Where users abandoned the funnel
+- Which campaigns delivered the highest ROI
+- Which landing pages generated conversions
+- How marketing activity contributed to revenue
 
-Without a centralized reporting solution, campaign optimization and budget allocation decisions were difficult to make confidently.
+As a result, campaign optimization decisions were often made without a complete view of performance.
 
 ---
 
 # Business Objectives
 
-The project was designed to:
+The project was designed to answer:
 
-* Measure acquisition performance across channels
-* Analyze user progression through the marketing funnel
-* Identify conversion bottlenecks
-* Evaluate landing page effectiveness
-* Measure campaign efficiency
-* Improve lead generation performance
-* Support data-driven budget allocation decisions
+## Acquisition
+
+- Which channels drive the most traffic?
+- Which channels generate the most leads?
+- Which campaigns perform best?
+
+## Funnel Analysis
+
+- Where do users drop off?
+- Which stages require optimization?
+- How efficient is the conversion journey?
+
+## Landing Pages
+
+- Which landing pages convert best?
+- Which pages should be optimized?
+
+## Campaign Performance
+
+- Which campaigns generate the highest ROAS?
+- Which campaigns have the lowest CPL?
+
+## Lead Quality
+
+- Which channels generate high-value leads?
+- Which channels contribute most revenue?
 
 ---
 
 # Funnel Definition
 
-Website Session
+Session
 
 ↓
 
@@ -67,127 +87,58 @@ Form Start
 
 ↓
 
-Lead Generation
+Lead
 
 ---
 
 # Technology Stack
 
-| Technology         | Purpose                         |
-| ------------------ | ------------------------------- |
-| Google Analytics 4 | Website Analytics               |
-| Google Tag Manager | Event Tracking                  |
-| BigQuery           | Data Warehouse                  |
-| SQL                | Data Transformation & Analysis  |
-| Google Ads         | Campaign Performance            |
-| Looker Studio      | Dashboard Reporting             |
-| CRM Data           | Lead Quality Analysis           |
-| GitHub             | Documentation & Version Control |
+| Technology | Purpose |
+|------------|----------|
+| Google Analytics 4 | Web Analytics |
+| Google Tag Manager | Event Tracking |
+| Google Ads | Campaign Data |
+| CRM | Lead & Revenue Data |
+| SQL | Data Transformation |
+| BigQuery | Data Warehouse |
+| Looker Studio | Dashboarding |
+| GitHub | Documentation & Version Control |
 
 ---
 
-# Key Business Questions
+# Solution Architecture
 
-## Acquisition
+```text
+Google Analytics 4
+        │
+        ▼
 
-* Which channels generate the most traffic?
-* Which channels generate the most leads?
-* Which campaigns drive the highest conversions?
+BigQuery Export
+        │
+        ▼
 
-## Funnel Analysis
+Marketing Event Layer
+        │
+        ├───────────────┐
+        ▼               ▼
 
-* Where do users drop off?
-* Which stage has the highest abandonment rate?
-* How efficient is the conversion funnel?
+Google Ads      CRM Leads
+Campaign Data   Revenue Data
 
-## Landing Pages
+        └───────┬────────┘
+                ▼
 
-* Which pages convert best?
-* Which pages require optimization?
+      Data Blending Layer
+                ▼
 
-## Campaign Performance
+    Reporting Data Marts
+                ▼
 
-* Which campaigns generate the highest ROAS?
-* Which campaigns produce the lowest CPL?
+       Dashboard Layer
+                ▼
 
-## Lead Quality
-
-* Which channels generate the highest-quality leads?
-* Which channels contribute the most revenue?
-
----
-
-# Dashboard Pages
-
-## Executive Overview
-
-Key KPIs:
-
-* Users
-* Sessions
-* Leads
-* Conversion Rate
-* Cost Per Lead (CPL)
-* Return On Ad Spend (ROAS)
-
----
-
-## Funnel Analysis
-
-Tracks:
-
-Sessions
-→ Engaged Sessions
-→ CTA Clicks
-→ Form Starts
-→ Leads
-
-Metrics:
-
-* Funnel Conversion Rate
-* Funnel Drop-Off %
-* Lead Conversion Rate
-
----
-
-## Acquisition Performance
-
-Dimensions:
-
-* Source
-* Medium
-* Campaign
-
-Metrics:
-
-* Users
-* Sessions
-* Leads
-* Conversion Rate
-
----
-
-## Landing Page Analysis
-
-Metrics:
-
-* Landing Page Sessions
-* Engagement Rate
-* Leads
-* Conversion Rate
-
----
-
-## Campaign Performance
-
-Metrics:
-
-* Spend
-* Clicks
-* Conversions
-* Revenue
-* CPL
-* ROAS
+     Executive Reporting
+```
 
 ---
 
@@ -232,6 +183,29 @@ marketing-funnel-dashboard/
 ├── quality/
 │   └── validation-checks.sql
 
+├── requirements/
+│   └── stakeholder-requirements.md
+
+├── testing/
+│   └── dashboard-uat.md
+
+├── warehouse/
+│   ├── staging/
+│   │   ├── stg_ga4_events.sql
+│   │   ├── stg_ads.sql
+│   │   └── stg_crm_leads.sql
+│   │
+│   ├── marts/
+│   │   ├── mart_marketing_funnel.sql
+│   │   ├── mart_campaign_performance.sql
+│   │   └── mart_lead_quality.sql
+│   │
+│   ├── views/
+│   │   ├── vw_dashboard_kpis.sql
+│   │   └── vw_campaign_summary.sql
+│   │
+│   └── schema.yml
+
 ├── sql/
 │   ├── acquisition.sql
 │   ├── landing_page_performance.sql
@@ -240,6 +214,10 @@ marketing-funnel-dashboard/
 │   ├── lead_quality.sql
 │   ├── attribution_model.sql
 │   └── channel_roi.sql
+
+├── CHANGELOG.md
+
+├── ROADMAP.md
 
 ├── portfolio-mapping.md
 
@@ -254,19 +232,19 @@ marketing-funnel-dashboard/
 
 Provides:
 
-* Users
-* Sessions
-* Engagement Metrics
-* Funnel Events
-* Landing Page Performance
+- Users
+- Sessions
+- Engagement Metrics
+- Funnel Events
+- Landing Page Analysis
 
-Key Events:
+Tracked Events:
 
-* session_start
-* user_engagement
-* cta_click
-* form_start
-* generate_lead
+- session_start
+- user_engagement
+- cta_click
+- form_start
+- generate_lead
 
 ---
 
@@ -274,143 +252,99 @@ Key Events:
 
 Provides:
 
-* Campaign Spend
-* Clicks
-* Impressions
-* Conversions
-* Revenue
+- Campaign Spend
+- Impressions
+- Clicks
+- Conversions
+- Revenue
 
 ---
 
-## CRM Leads
+## CRM Data
 
 Provides:
 
-* Lead Score
-* Deal Value
-* Lead Status
-* Revenue Attribution
+- Lead Quality Scores
+- Deal Values
+- Revenue Attribution
+- Lead Status
 
 ---
 
-# Data Model
+# Data Warehouse Layer
 
-Data from multiple sources is blended into a unified reporting layer.
+The warehouse follows a modern analytics engineering pattern.
 
-Google Analytics 4
-│
-▼
+## Staging Layer
 
-BigQuery Export
-│
-▼
+Purpose:
 
-Marketing Event Layer
-│
-├───────────────┐
-▼               ▼
+Standardize raw source data.
 
-Google Ads      CRM Leads
-Campaign Data   Revenue Data
+Models:
 
-```
-    └───────┬────────┘
-            ▼
-
-  Data Blending Layer
-            ▼
-
-   Funnel Dashboard
-            ▼
-
-   Executive Reporting
-```
+- stg_ga4_events
+- stg_ads
+- stg_crm_leads
 
 ---
 
-# SQL Analysis Included
+## Mart Layer
 
-## acquisition.sql
+Purpose:
 
-Analyzes:
+Business-ready reporting models.
 
-* Source Performance
-* Medium Performance
-* Traffic Acquisition Trends
+Models:
 
----
-
-## landing_page_performance.sql
-
-Analyzes:
-
-* Landing Page Traffic
-* Conversion Performance
-* Engagement Metrics
+- mart_marketing_funnel
+- mart_campaign_performance
+- mart_lead_quality
 
 ---
 
-## funnel_dropoff.sql
+## View Layer
 
-Calculates:
+Purpose:
 
-* Funnel Stage Conversion
-* Funnel Drop-Off %
-* Lead Conversion Rates
+Dashboard consumption layer.
 
----
+Views:
 
-## sem_efficiency.sql
-
-Measures:
-
-* Campaign Efficiency
-* Cost Per Lead
-* Paid Search Performance
+- vw_dashboard_kpis
+- vw_campaign_summary
 
 ---
 
-## lead_quality.sql
+# KPI Governance
 
-Evaluates:
+Governed Metrics Include:
 
-* Lead Scores
-* Pipeline Value
-* Lead Quality by Channel
+- Users
+- Sessions
+- Engaged Sessions
+- CTA Clicks
+- Form Starts
+- Leads
+- Conversion Rate
+- CPL
+- ROAS
 
----
+Reference:
 
-## attribution_model.sql
-
-Supports:
-
-* Channel Attribution
-* Revenue Attribution
-* Campaign Evaluation
-
----
-
-## channel_roi.sql
-
-Calculates:
-
-* Revenue
-* Cost
-* ROAS
-* Marketing ROI
+documentation/metric-governance.md
 
 ---
 
 # Data Quality Framework
 
-Data validation checks include:
+Validation checks include:
 
-* Duplicate Lead Detection
-* Missing Values
-* Invalid Lead Scores
-* Negative Revenue Checks
-* Funnel Consistency Validation
-* Campaign Data Completeness Checks
+- Duplicate detection
+- Missing value checks
+- Funnel consistency validation
+- Revenue validation
+- Campaign completeness validation
 
 Reference:
 
@@ -420,21 +354,22 @@ quality/validation-checks.sql
 
 # Attribution Framework
 
-Current Attribution Model:
+Current Model:
 
 Last Touch Attribution
 
-Purpose:
+Supported Metrics:
 
-* Lead Generation Analysis
-* Campaign Performance Reporting
-* Marketing ROI Evaluation
+- Leads
+- Revenue
+- CPL
+- ROAS
 
 Future Enhancements:
 
-* Multi-Touch Attribution
-* Position-Based Attribution
-* Data-Driven Attribution
+- Multi-Touch Attribution
+- Position-Based Attribution
+- Data-Driven Attribution
 
 Reference:
 
@@ -442,172 +377,218 @@ attribution/attribution-framework.md
 
 ---
 
-# KPI Governance
+# Dashboard Deliverables
 
-Governed Metrics Include:
+## Executive Overview
 
-* Users
-* Sessions
-* Engaged Sessions
-* CTA Clicks
-* Form Starts
-* Leads
-* Conversion Rate
-* CPL
-* ROAS
+KPIs:
 
-Governance Includes:
+- Users
+- Sessions
+- Leads
+- Conversion Rate
+- CPL
+- ROAS
 
-* Business Definitions
-* Ownership
-* Refresh Frequency
-* Calculation Logic
-* Validation Rules
+---
 
-Reference:
+## Funnel Dashboard
 
-documentation/metric-governance.md
+Measures:
+
+- Funnel Conversion
+- Funnel Drop-Off
+- Lead Generation Efficiency
+
+---
+
+## Acquisition Dashboard
+
+Measures:
+
+- Source Performance
+- Medium Performance
+- Campaign Performance
+
+---
+
+## Landing Page Dashboard
+
+Measures:
+
+- Engagement
+- Lead Generation
+- Conversion Rate
+
+---
+
+## Campaign Dashboard
+
+Measures:
+
+- Spend
+- Revenue
+- ROAS
+- CPL
+
+---
+
+# SQL Analysis
+
+The project includes analytical SQL covering:
+
+- Acquisition Analysis
+- Funnel Analysis
+- Landing Page Performance
+- Campaign Efficiency
+- Lead Quality
+- Attribution
+- ROI Analysis
 
 ---
 
 # Key Findings
 
-Analysis identified several opportunities for optimization.
+### Funnel Optimization Opportunity
 
-### Funnel Performance
-
-Largest drop-off observed between:
+Largest drop-off:
 
 CTA Click → Form Start
 
 ---
 
-### Acquisition Performance
+### Campaign Performance
 
 Paid Search generated:
 
-* Strong lead volume
-* Better conversion efficiency
-* Lower acquisition costs
+- Higher lead volume
+- Better conversion efficiency
+- Stronger ROAS
 
 ---
 
 ### Landing Pages
 
-A small number of landing pages generated the majority of leads.
+Top-performing landing pages generated a disproportionate share of conversions.
 
 ---
 
 ### Lead Quality
 
-Lead quality varied significantly across acquisition channels.
-
-Search and referral channels produced stronger lead scores.
+Search and referral channels generated higher-quality leads than social channels.
 
 ---
 
 # Recommendations
 
-## Improve Lead Form Experience
+### Short-Term
 
-Reduce required fields to improve form completion rates.
+- Simplify lead forms
+- Improve landing page UX
+- Optimize campaign targeting
 
----
+### Medium-Term
 
-## Increase Investment in High-Performing Search Campaigns
+- Expand high-performing search campaigns
+- Implement A/B testing
+- Improve attribution visibility
 
-Allocate additional budget to campaigns with strong ROAS and CPL performance.
+### Long-Term
 
----
-
-## Optimize Underperforming Landing Pages
-
-Replicate design patterns from top-performing pages.
-
----
-
-## Improve Attribution Reporting
-
-Implement multi-touch attribution for more accurate performance measurement.
+- Multi-touch attribution
+- Predictive lead scoring
+- Marketing forecasting
 
 ---
 
-# Expected Business Impact
+# Testing & Validation
 
-Potential outcomes include:
+User Acceptance Testing (UAT) includes:
 
-* 10–20% increase in lead generation
-* Improved conversion rates
-* Reduced Cost Per Lead (CPL)
-* Increased Return On Ad Spend (ROAS)
-* Better marketing budget allocation
-* Enhanced executive visibility
+- KPI Validation
+- Conversion Rate Validation
+- CPL Validation
+- ROAS Validation
+- Funnel Integrity Testing
+- Campaign Reporting Validation
+
+Reference:
+
+testing/dashboard-uat.md
+
+---
+
+# Business Impact
+
+Potential outcomes from implementing recommendations:
+
+- 10–20% increase in lead generation
+- Improved conversion rates
+- Lower Cost Per Lead
+- Better budget allocation
+- Increased marketing ROI
+- Enhanced executive visibility
 
 ---
 
 # Skills Demonstrated
 
-## Analytics
+## Marketing Analytics
 
-* Marketing Analytics
-* Funnel Analysis
-* Campaign Analysis
-* Lead Quality Analysis
-* Attribution Analysis
+- Funnel Analysis
+- Channel Performance Analysis
+- Lead Quality Analysis
+- Attribution Analysis
 
-## Data
+## Data Analytics
 
-* SQL
-* BigQuery
-* Data Modeling
-* Data Blending
-* Data Validation
+- SQL
+- Data Modeling
+- Data Warehousing
+- Data Validation
 
-## Reporting
+## Business Intelligence
 
-* Dashboard Design
-* KPI Development
-* Executive Reporting
-* Stakeholder Communication
+- Dashboard Design
+- KPI Development
+- Executive Reporting
+- Stakeholder Communication
 
-## Governance
+## Analytics Engineering
 
-* Metric Governance
-* Data Quality Frameworks
-* Attribution Framework Design
-* Reporting Standards
+- Staging Models
+- Data Marts
+- Semantic Layer Design
+- Documentation & Governance
 
 ---
 
-# Portfolio Highlights
+# Portfolio Positioning
 
-This repository demonstrates the responsibilities commonly associated with:
+This project demonstrates responsibilities commonly associated with:
 
-* Marketing Analyst
-* Senior Marketing Analyst
-* Business Intelligence Analyst
-* Product Analyst
-* Growth Analyst
-* Analytics Consultant
+- Marketing Analyst
+- Senior Marketing Analyst
+- Business Intelligence Analyst
+- Growth Analyst
+- Analytics Engineer
+- Analytics Consultant
 
 including:
 
-* Requirements gathering
-* Data modeling
-* KPI governance
-* Funnel analytics
-* Attribution analysis
-* Dashboard development
-* Executive reporting
-* Business recommendations
+- Requirements Gathering
+- Data Modeling
+- KPI Governance
+- Attribution Design
+- Dashboard Development
+- Data Quality Management
+- Executive Reporting
+- Strategic Recommendations
 
 ---
 
 # Disclaimer
 
-All datasets included in this repository are synthetic sample data created for portfolio purposes.
+All datasets included in this repository are synthetic sample data created solely for  portfolio purposes.
 
 No real customer, company, or proprietary data is included.
-
-
-
