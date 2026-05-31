@@ -1,0 +1,11 @@
+date,source,medium,campaign,landing_page,users,sessions,engaged_sessions,cta_clicks,form_starts,leads
+2025-01-01,google,organic,SEO,/home,820,1000,710,320,140,52
+2025-01-02,google,cpc,Brand Search,/pricing,950,1180,860,410,190,78
+2025-01-03,direct,none,Direct,/home,610,760,520,190,85,31
+2025-01-04,linkedin,social,LinkedIn Lead Gen,/demo,450,540,370,170,72,24
+2025-01-05,facebook,social,Facebook Prospecting,/ebook,520,630,430,210,91,29
+2025-01-06,google,cpc,Non Brand Search,/pricing,1050,1290,940,470,225,88
+2025-01-07,newsletter,email,January Newsletter,/blog,390,470,340,130,60,21
+2025-01-08,google,organic,SEO,/home,860,1030,735,340,145,56
+2025-01-09,referral,partner,Affiliate Partner,/landing-a,410,510,355,150,68,23
+2025-01-10,google,cpc,Remarketing,/demo,780,940,680,290,132,49
