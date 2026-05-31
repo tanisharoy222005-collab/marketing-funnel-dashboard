@@ -1,13 +1,22 @@
--- Landing Page Performance
+WITH landing_pages AS (
+  SELECT
+    event_date,
+    page_location,
+    COUNT(*) AS sessions
+  FROM
+    `project.analytics.events_*`
+  WHERE event_name = 'session_start'
+  GROUP BY
+    event_date,
+    page_location
+)
 
 SELECT
-page_location,
-COUNT(*) AS page_views
-FROM analytics.events
-WHERE event_name = 'page_view'
-GROUP BY page_location
-ORDER BY page_views DESC;
-
--- So What:
--- Reveals highest traffic landing pages.
--- Helps prioritize optimization efforts.
+  page_location,
+  SUM(sessions) AS total_sessions
+FROM
+  landing_pages
+GROUP BY
+  page_location
+ORDER BY
+  total_sessions DESC;
