@@ -1,0 +1,46 @@
+version: 2
+
+models:
+
+  - name: stg_ga4_events
+    description: Google Analytics 4 staging table
+
+    columns:
+
+      - name: date
+        description: Reporting date
+
+      - name: source
+        description: Traffic source
+
+      - name: sessions
+        description: Website sessions
+
+      - name: leads
+        description: Generated leads
+
+  - name: stg_ads
+    description: Google Ads staging table
+
+    columns:
+
+      - name: campaign_name
+        description: Campaign name
+
+      - name: cost
+        description: Advertising spend
+
+      - name: conversions
+        description: Campaign conversions
+
+  - name: stg_crm_leads
+    description: CRM lead staging table
+
+  - name: mart_marketing_funnel
+    description: Funnel reporting mart
+
+  - name: mart_campaign_performance
+    description: Campaign reporting mart
+
+  - name: mart_lead_quality
+    description: Lead quality reporting mart
